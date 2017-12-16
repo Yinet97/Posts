@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Usuarios </title>
+	<link rel="stylesheet" href="resources/css/bootstrap.css" >
+	<script type="text/javascript" src="resources\js\jquery-3.2.1.min.js"></script>
+
+	<script type="text/javascript">
+		var user = function(){
+		var self= this;
+		self.idUsuario;
+		self.name;
+		self.username;
+		self.email;
+		self.address;
+		self.phone;
+		self.website;
+	};
+
+	function cargarUsuario() {
+
+				var urlUsuario = new URLSearchParams(window.location.search);
+				var id= urlUsuario.get('isusuario');
+
+				var root = 'https://jsonplaceholder.typicode.com';	
+
+				$.ajax({
+  				url: root + '/users/'+id,
+ 		 		method: 'GET'
+				}).then(function(data) {
+				console.log(data);
+				var info = JSON.stringify(data);;
+
+				var usi="<div class='row'>"
+				+"<div class='col-md-10'>"
+				+"<h1>"+"Informacion del Usuario" +"</h1>"
+				+"<h3>"+"Nombre :"+ data.name+"</h3>"
+				+"<h3>"+"Usuario:"+ data.username+"<h3>"
+				+"<h3>"+"Email :"+ data.email+"<h3>"
+				+"<h3>"+"Address :"+ data.address.street+"<h3>"
+				+"<h3>"+"Telefono :"+ data.phone+"<h3>"
+				+"<h3>"+"Website :"+ data.website+"<h3>"
+				+"</div>"
+				+"</div>"
+
+				$('#postU').append(usi);
+				
+  			});
+		};
+
+	$(document).ready(function () {
+		cargarUsuario();
+	});
+
+	</script>
+
+</head>
+<body>
+	<div class="container">
+		<div id="postU"></div>
+	</div>
+</body>
+</html>

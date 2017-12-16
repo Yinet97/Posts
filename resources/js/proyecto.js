@@ -6,6 +6,17 @@ var post = function(){
 		self.body;
 	};
 
+	var user = function(){
+		var self= this;
+		self.idUsuario;
+		self.name;
+		self.user;
+		self.email;
+		self.address;
+		self.phone;
+		self.website;
+	};
+
 	function cargarPost() {
 				var root = 'https://jsonplaceholder.typicode.com';	
 
@@ -13,7 +24,7 @@ var post = function(){
   				url: root + '/posts',
  		 		method: 'GET'
 				}).then(function(data) {
-
+				console.log(data);	
 				var localStorage = window.localStorage;
 				var postFavoritos = {};
 				var dbPostFavoritos = localStorage.getItem('postFavoritos');
@@ -28,31 +39,39 @@ var post = function(){
   					var existe = p.id in postFavoritos;
   					
   					var post = "<div class='row'>"
-					+"<div class='col-md-12'>"
+					+"<div class='col-md-10'>"
 					+"<h3>"+ p.title+"</h3>"
 					+"</div>"
 
-					+"<div class='col-md-10'>"
-					+"<button class='btn btn-success glyphicon "+(existe ? 'glyphicon-star' : 'glyphicon-star-empty')
+					+"<div class='col-md-2'>"
+					+"<br>"+"</br>"
+					+"<button class='btn btn-info glyphicon "+(existe ? 'glyphicon-star': 'glyphicon-star-empty')
   					+" post_boton' data-postid= '"+p.id 
 					+"'></button>"
 					+"</div>"
 					+"</div>"
-
-					+"<div class='row'>"
-					+"<div class='col-md-12'>"
-					+"<a class='publicador'><span class='glyphicon glyphicon-user'>Yinet Jaquez - Yinetjc@hotmail.com </span>" 
-					+"</a>"
-					+"</div>"
-					+"</div>"
-
+					
 					+"<div class='row'>"
 					+"<div class='col-md-12'>"
 					+"<p>"+p.body+"</p>"
 					+"</div>"
 					+"</div>"
+
+					+"<div class='row'>"
+					+"<div class='col-md-12'>"
+					+"<a id='idUser' href='Usuarios.html?isusuario="+p.userId+" ' target='_blank' class='publicador'>"
+					+"<span class='glyphicon glyphicon-user'>"+p.userId+"</span>" 
+					+"</a>"
+					+"</div>"
+					+"</div>"
+
 					$('#post').append(post);
+
 				});
+  					$('.post_user').click(function () {
+  					var postu = $(this).data('postu');
+  					});
+ 					
 
   					$('.post_boton').click(function () {
   					var postid = $(this).data('postid');
@@ -74,6 +93,11 @@ var post = function(){
   				});
 			});
 		};
+
+		/*var variable= self.userId;
+			function leevariable(){
+    		alert(variable);
+		};*/
 
 	function agregarPostFavorito(postid){
 
