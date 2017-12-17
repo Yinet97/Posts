@@ -10,7 +10,7 @@ var post = function(){
 		var self= this;
 		self.idUsuario;
 		self.name;
-		self.user;
+		self.username;
 		self.email;
 		self.address;
 		self.phone;
@@ -37,10 +37,14 @@ var post = function(){
   				$.each(data, function(i, p){
 
   					var existe = p.id in postFavoritos;
-  					
+  					//presentarUsuario(p.userId);
+
   					var post = "<div class='row'>"
 					+"<div class='col-md-10'>"
-					+"<h3>"+ p.title+"</h3>"
+					+"<h3>"+"<a id='userComment' href='ComentarioPost.html?comment="+p.id
+					+"'class='publicador'>"+p.title 
+					+"</a>" 
+					+"</h3>"
 					+"</div>"
 
 					+"<div class='col-md-2'>"
@@ -59,9 +63,11 @@ var post = function(){
 
 					+"<div class='row'>"
 					+"<div class='col-md-12'>"
-					+"<a id='idUser' href='Usuarios.html?isusuario="+p.userId+" ' target='_blank' class='publicador'>"
+					+"<a id='idUser' href='Usuarios.html?usuario="+p.userId
+					+" 'class='publicador'>"
 					+"<span class='glyphicon glyphicon-user'>"+p.userId+"</span>" 
 					+"</a>"
+
 					+"</div>"
 					+"</div>"
 
@@ -93,11 +99,6 @@ var post = function(){
   				});
 			});
 		};
-
-		/*var variable= self.userId;
-			function leevariable(){
-    		alert(variable);
-		};*/
 
 	function agregarPostFavorito(postid){
 

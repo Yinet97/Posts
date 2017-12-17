@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Comentarios</title>
+	<link rel="stylesheet" href="resources/css/bootstrap.css" >
+	<script type="text/javascript" src="resources/js/jquery-3.2.1.min.js"></script>
+
+	<script type="text/javascript">
+
+		var comments = function(){
+			var self= this;
+			self.postId;
+			self.id;
+			self.name;
+			self.email;
+			self.body;
+	};
+
+		function cargarComentarios() {
+
+				var urlUsuario = new URLSearchParams(window.location.search);
+				var id= urlUsuario.get('comment');
+
+				var root = 'https://jsonplaceholder.typicode.com';	
+
+				$.ajax({
+  				url: root + '/comments?postId='+id,
+ 		 		method: 'GET'
+				}).then(function(data) {
+				console.log(data);
+
+				$.each(data,function(i,c){
+					var co="<div class='row'>"
+					+"<div class='col-md-10'>"
+
+					+"<h2>"+"Comentario: " + c.id+"</h2>"
+					
+					+"<h3>"+ c.name+"</h3>"
+					+"<h3>"+ c.body+"</h3>"
+					+"<a id='usuario'"
+					+" class='publicador'>"
+					+"<span class='glyphicon glyphicon-user'>"+c.email+"</span>" 
+			
+					+"</div>"
+					+"</div>"
+
+					$('#postC').append(co);
+				});			
+  			});
+		};
+		
+		function mandarPagina(){
+
+			window.location.href = "Formulario.html"
+		};
+
+		$(document).ready(function () {
+			cargarComentarios();
+		});
+
+	</script>
+
+</head>
+<body>
+	<div class="container">
+		</br>
+		<h1 class="col-sm-8 control-label">Comentarios </h1>
+			<div class="col-sm-4">
+				<button class='btn btn-success' onclick="mandarPagina();">Agregar Post </button>
+			</div>
+		<div id="postC"></div>
+	</div>
+</body>
+</html>

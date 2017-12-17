@@ -3,7 +3,7 @@
 <head>
 	<title>Usuarios </title>
 	<link rel="stylesheet" href="resources/css/bootstrap.css" >
-	<script type="text/javascript" src="resources\js\jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="resources/js/jquery-3.2.1.min.js"></script>
 
 	<script type="text/javascript">
 		var user = function(){
@@ -17,10 +17,17 @@
 		self.website;
 	};
 
-	function cargarUsuario() {
+	function mandarPagina(){
+
+			window.location.href = "Formulario.html"
+		};
+
+	function cargarUsuario(variable) {
 
 				var urlUsuario = new URLSearchParams(window.location.search);
-				var id= urlUsuario.get('isusuario');
+				var id= urlUsuario.get('usuario');
+				//var o = JSON.parse(idi);
+				//var json = JSON.stringify(o);
 
 				var root = 'https://jsonplaceholder.typicode.com';	
 
@@ -29,27 +36,52 @@
  		 		method: 'GET'
 				}).then(function(data) {
 				console.log(data);
-				var info = JSON.stringify(data);;
-
+			
 				var usi="<div class='row'>"
 				+"<div class='col-md-10'>"
-				+"<h1>"+"Informacion del Usuario" +"</h1>"
 				+"<h3>"+"Nombre :"+ data.name+"</h3>"
 				+"<h3>"+"Usuario:"+ data.username+"<h3>"
 				+"<h3>"+"Email :"+ data.email+"<h3>"
-				+"<h3>"+"Address :"+ data.address.street+"<h3>"
+				+"<h3>"+"Address :"+"<br>"+"</br>"
+				+ data.address.street+"</h3>"
 				+"<h3>"+"Telefono :"+ data.phone+"<h3>"
 				+"<h3>"+"Website :"+ data.website+"<h3>"
+				+"<h3>"+"Cantidad :"+ variable+"<h3>"
 				+"</div>"
 				+"</div>"
 
 				$('#postU').append(usi);
-				
   			});
 		};
 
+		function cantidadPost(){
+
+			var count =0;
+			var urlUsuario = new URLSearchParams(window.location.search);
+			var id= urlUsuario.get('usuario');
+
+			var root = 'https://jsonplaceholder.typicode.com';	
+
+				$.ajax({
+  				url: root + '/posts?userId='+id,
+ 		 		method: 'GET'
+				}).then(function(data) {
+				console.log(data);
+
+				$.each(data, function(i,p){
+
+					count++;
+				});
+
+				console.log(count);
+				cargarUsuario(count);
+			});
+				
+		};
+
 	$(document).ready(function () {
-		cargarUsuario();
+		cantidadPost();
+		//cargarUsuario();
 	});
 
 	</script>
@@ -57,6 +89,11 @@
 </head>
 <body>
 	<div class="container">
+		</br>
+		<h1 class="col-sm-8 control-label">Informacion del Usuario </h1>
+			<div class="col-sm-4">
+				<button class='btn btn-success' onclick="mandarPagina();">Agregar Post </button>
+			</div>
 		<div id="postU"></div>
 	</div>
 </body>

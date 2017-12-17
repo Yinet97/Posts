@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Formulario</title>
+	<link rel="stylesheet" href="resources/css/bootstrap.css" >
+	<script type="text/javascript" src="resources/js/jquery-3.2.1.min.js"></script>
+
+	<script type="text/javascript">
+
+		function addPost(){
+
+			var root = 'https://jsonplaceholder.typicode.com';
+			var title = $('#titulo').val();
+			var body = $('#cuerpo').val();
+
+			var post= {
+				title: titulo,
+				body: cuerpo,
+				userId: 1
+			}
+
+			//alert(title+" "+body);
+
+			$.ajax({
+				type: "POST",
+				url: root + "/posts",
+				data: JSON.stringify(post),
+				success: function(data){
+					console.log(data);
+				}
+			});
+		};
+
+		$(document).ready(function () {
+			$('#addPost').click(function(){
+				addPost();
+			})
+			
+	});
+
+	</script>
+
+</head>
+<body>
+	<form class="form-horizontal">
+
+		<div class="form-group">
+			</br>
+
+			<h2>Agregar Post</h2>
+			<label class="col-sm-2 control-label">Title: </label>
+			<div class="col-sm-10">
+				<input class="form-control" style="WIDTH: 450px; placeholder="Title" id="titulo">
+			</div>
+		</div>
+ 
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Body: </label>
+			<div class="col-sm-10">
+				<textarea class="form-control" style="WIDTH: 450px; HEIGHT: 100px" size=32 placeholder="Body" id="cuerpo"> 
+				</textarea>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button type="button" id="addPost" class="btn btn-default">Agregar</button>
+			</div>
+		</div>
+		
+	</form>
+</body>
+</html>
